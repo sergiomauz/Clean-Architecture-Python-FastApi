@@ -1,4 +1,4 @@
 """
     ToDo: DocString
 """
-from .routes_handler import RoutesHandler
+from .routes_handler import router

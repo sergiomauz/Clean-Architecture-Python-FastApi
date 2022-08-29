@@ -1,6 +1,6 @@
-# FLASK PROJECT
+# FASTAPI PROJECT
 
-> This is a Flask project.
+> This is a FastApi project.
 
 ## Screenshots
 

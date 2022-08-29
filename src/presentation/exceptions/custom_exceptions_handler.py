@@ -2,7 +2,7 @@
     ToDo: DocString
 """
 from mediatr import Mediator
-from flask import Response
+from fastapi import Response
 from common.utils import Constants
 from presentation.common import ApiResponseVm
 from application.main.system_management.errors_log.commands.create_error_log import (
@@ -24,7 +24,7 @@ class CustomExceptionsHandler:
         api_response_view_model = ApiResponseVm(error_view_model)
 
         return Response(
-            response = api_response_view_model.json_string,
-            status = api_response_view_model.result.status_code,
-            mimetype = Constants.CONTENT_TYPE_JSON
+            content = api_response_view_model.json_string,
+            status_code = api_response_view_model.result.status_code,
+            media_type = Constants.CONTENT_TYPE_JSON
         )

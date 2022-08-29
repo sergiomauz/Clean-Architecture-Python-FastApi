@@ -1,21 +1,16 @@
 """
     ToDo: DocString
 """
-from flask import Flask
-from domain.persistence.main import set_connection, sql_alchemy
-from presentation.routes import RoutesHandler
-from presentation.exceptions import CustomExceptionsHandler
 
+from fastapi import FastAPI
+from presentation.routes import router as api_router
 
-app = Flask(__name__)
-db = set_connection(app)
-
-routes_handler = RoutesHandler()
-routes_handler.start_routes(app)
-
-exceptions_handler = CustomExceptionsHandler()
-exceptions_handler.start_custom_exceptions(app)
-
+app = FastAPI(
+    title = "Clean Architecture",
+    description = "Prueba de FastApi",
+    version = "1.0"
+)
+app.include_router(api_router)
 
 if __name__ == "__main__":
     app.run(debug = True)

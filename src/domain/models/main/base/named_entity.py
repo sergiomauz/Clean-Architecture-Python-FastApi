@@ -2,7 +2,7 @@
     ToDo: DocString
 """
 import sqlalchemy as sa
-from domain.persistence.main import sql_alchemy as db
+from sqlalchemy import Column, String
 from application.common.general import BasicSearchParameters
 from .basic_entity_id_uuid import BasicEntity
 
@@ -10,7 +10,7 @@ from .basic_entity_id_uuid import BasicEntity
 class NamedEntity(BasicEntity):
     """ ToDo: DocString """
     __abstract__ = True
-    name = db.Column(db.String(100), default = None)
+    name = Column(String(100))
 
     @classmethod
     def filter(cls, basic_search_parameters: BasicSearchParameters):

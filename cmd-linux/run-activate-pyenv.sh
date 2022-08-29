@@ -1,1 +1,0 @@
-pyenv activate Tutorial-CleanArchitecture

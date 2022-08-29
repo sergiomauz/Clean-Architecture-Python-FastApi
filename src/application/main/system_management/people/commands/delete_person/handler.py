@@ -1,7 +1,7 @@
 """
     ToDo: DocString
 """
-from flask import abort
+from fastapi import HTTPException
 from mediatr import Mediator
 from common.utils import Messages
 from domain.models.main.system_management import Person
@@ -17,7 +17,7 @@ class DeletePersonHandler:
         """ ToDo: DocString """
         people = Person.get_list_by_uids(uids_list = command.uids)
         if len(people) != len(command.uids):
-            abort(status = 404, description = Messages.ID_NOT_FOUND)
+            raise HTTPException(status_code = 404, detail = Messages.ID_NOT_FOUND)
         Person.delete_list_by_uids(uids_list = command.uids)
 
         delete_person_vm = DeletePersonVm(

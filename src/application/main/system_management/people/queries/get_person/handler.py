@@ -1,7 +1,7 @@
 """
     ToDo: DocString
 """
-from flask import abort
+from fastapi import HTTPException
 from mediatr import Mediator
 from common.utils import Messages, str_yyyymmdd_t
 from domain.models.main.system_management import Person
@@ -17,8 +17,7 @@ class GetPersonHandler:
         """ ToDo: DocString """
         person = Person.get_by_uid(str_uid = query.uid)
         if not person:
-            abort(status = 404, description = Messages.ID_NOT_FOUND)
-
+            raise HTTPException(status_code = 404, detail = Messages.ID_NOT_FOUND)
         get_person_vm = GetPersonVm(
             uid = str(person.uid),
             name = person.name,

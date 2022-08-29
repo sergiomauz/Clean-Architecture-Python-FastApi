@@ -4,7 +4,7 @@
 
 import uuid
 from mediatr import Mediator
-from flask import Blueprint, Response, request
+from fastapi import APIRouter, Response
 from common.utils import Constants
 from application.main.system_management.people.commands.create_person import (
     CreatePersonCommand, CreatePersonVm, CreatePersonHandler)
@@ -19,11 +19,15 @@ from application.main.system_management.people.commands.delete_person import (
 from presentation.common import ApiResponseVm
 
 
-people = Blueprint("people", __name__)
+router = APIRouter(
+    prefix="/people",
+    tags=["User"],
+    responses={404: {"description": "Not found"}},
+)
 mediator = Mediator()
 
 
-@people.route("/", methods=["POST"])
+@router.post("/")
 async def create_person():
     """ ToDo: DocString """
     command = CreatePersonCommand.new(request)
@@ -31,12 +35,12 @@ async def create_person():
     api_response_view_model = ApiResponseVm(application_view_model)
 
     return Response(
-        response = api_response_view_model.json_string,
-        status = api_response_view_model.result.status_code,
-        mimetype = Constants.CONTENT_TYPE_JSON
+        content = api_response_view_model.json_string,
+        status_code = api_response_view_model.result.status_code,
+        media_type = Constants.CONTENT_TYPE_JSON
     )
 
-@people.route("/", methods=["GET"])
+@router.get("/")
 async def search_people():
     """ ToDo: DocString """
     query = SearchPeopleQuery.new(request)
@@ -44,12 +48,12 @@ async def search_people():
     api_response_view_model = ApiResponseVm(application_view_model)
 
     return Response(
-        response = api_response_view_model.json_string,
-        status = api_response_view_model.result.status_code,
-        mimetype = Constants.CONTENT_TYPE_JSON
+        content = api_response_view_model.json_string,
+        status_code = api_response_view_model.result.status_code,
+        media_type = Constants.CONTENT_TYPE_JSON
     )
 
-@people.route("/<uid>", methods=["GET"])
+@router.get("/{uid}")
 async def read_person(uid: uuid):
     """ ToDo: DocString """
     query = GetPersonQuery.new(uid)
@@ -57,12 +61,12 @@ async def read_person(uid: uuid):
     api_response_view_model = ApiResponseVm(application_view_model)
 
     return Response(
-        response = api_response_view_model.json_string,
-        status = api_response_view_model.result.status_code,
-        mimetype = Constants.CONTENT_TYPE_JSON
+        content = api_response_view_model.json_string,
+        status_code = api_response_view_model.result.status_code,
+        media_type = Constants.CONTENT_TYPE_JSON
     )
 
-@people.route("/", methods=["PUT"])
+@router.put("/")
 async def update_person():
     """ ToDo: DocString """
     command = UpdatePersonCommand.new(request)
@@ -70,12 +74,12 @@ async def update_person():
     api_response_view_model = ApiResponseVm(application_view_model)
 
     return Response(
-        response = api_response_view_model.json_string,
-        status = api_response_view_model.result.status_code,
-        mimetype = Constants.CONTENT_TYPE_JSON
+        content = api_response_view_model.json_string,
+        status_code = api_response_view_model.result.status_code,
+        media_type = Constants.CONTENT_TYPE_JSON
     )
 
-@people.route("/", methods=["DELETE"])
+@router.delete("/")
 async def delete_person():
     """ ToDo: DocString """
     command = DeletePersonCommand.new(request)
@@ -83,7 +87,7 @@ async def delete_person():
     api_response_view_model = ApiResponseVm(application_view_model)
 
     return Response(
-        response = api_response_view_model.json_string,
-        status = api_response_view_model.result.status_code,
-        mimetype = Constants.CONTENT_TYPE_JSON
+        content = api_response_view_model.json_string,
+        status_code = api_response_view_model.result.status_code,
+        media_type = Constants.CONTENT_TYPE_JSON
     )
